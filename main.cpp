@@ -2,7 +2,7 @@
 #include "Force.h";
 #include <iostream>
 #include <vector>
-#include "CVector.h";
+#include "classes/CVector.h";
 
 using namespace std;
 
