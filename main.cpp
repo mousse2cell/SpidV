@@ -1,8 +1,12 @@
-#include "Box.h"
-#include "Force.h";
-#include <iostream>
+#include "classes/Box.h"
+#include "classes/Force.h"
+#include "classes/CVector.h"
+#include "classes/DisplayWindow.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <vector>
-#include "classes/CVector.h";
+#include <SDL/SDL.h>
+
 
 using namespace std;
 
@@ -25,6 +29,8 @@ int main()
 		aCell->setRadius(radius);
 		customBox.addCell(aCell);
 	}
+	DisplayWindow window(customBox);
+	window.displayScene();
 	customBox.printBox();
 	customBox.deleteCells();
 

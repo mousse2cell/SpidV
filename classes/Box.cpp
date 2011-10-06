@@ -43,12 +43,12 @@ void Box::addCell(Cell* cell){
 void Box::printBox() const{
 	std::string s="Box : "+this->width+this->height+this->depth;
 	cout << s << endl;
-	for(int i=0;i<this->cells.size();i++){
+	for(unsigned int i=0;i<this->cells.size();i++){
 		this->cells[i]->printCell();
 	}
 }
 void Box::deleteCells(){
-	for(int i=0;i<this->cells.size();i++){
+	for(unsigned int i=0;i<this->cells.size();i++){
 		delete(this->cells[i]);
 	}
 	this->cells.clear();
