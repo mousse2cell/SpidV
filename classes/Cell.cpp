@@ -103,14 +103,12 @@ void Cell::addForce(Force & f)
 
 void Cell::applyForces()
 {
-	float xloc,yloc,zloc=0.0f;
 	bool move=false;
 	CVector cv;
 	for(unsigned int i=0;i<forces.size();i++){
 		move=true;
 		cv=cv+forces[i].getValueXyz();
 	}
-	cout<<"hello"<<endl;
 	this->coord.print();
 	(cv+this->coord).print();
 	if(move) setCoord(cv+this->coord);
