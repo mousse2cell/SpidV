@@ -29,6 +29,8 @@ private:
     CVector valueXYZ;
     const Cell* c1;
     const Cell* c2;
+    static const float ATTRACTIVE_CONST=1;
+    static const float REPULSIVE_CONST=1.5;
 };
 
 

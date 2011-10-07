@@ -66,7 +66,7 @@ void Force::evalAttractiveForce(const Cell & c1, const Cell & c2)
 	cv.setX(c1.getCoord().getX()-c2.getCoord().getX());
 	cv.setY(c1.getCoord().getY()-c2.getCoord().getY());
 	cv.setZ(c1.getCoord().getZ()-c2.getCoord().getZ());
-	cv=cv*0.5*(overlap/eucliDist);
+	cv=cv*ATTRACTIVE_CONST*(overlap/eucliDist);
 	this->setValueXyz(cv);
 }
 
@@ -80,7 +80,7 @@ void Force::evalRepulsiveForce(const Cell & c1, const Cell & c2)
 	cv.setX(c2.getCoord().getX()-c1.getCoord().getX());
 	cv.setY(c2.getCoord().getY()-c1.getCoord().getY());
 	cv.setZ(c2.getCoord().getZ()-c1.getCoord().getZ());
-	cv=cv*(overlap/eucliDist);
+	cv=cv*REPULSIVE_CONST*(overlap/eucliDist);
 	this->setValueXyz(cv);
 }
 
