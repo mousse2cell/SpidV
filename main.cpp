@@ -1,5 +1,5 @@
 #include "classes/Box.h"
-#include "classes/Force.h"
+//#include "classes/Force.h"
 #include "classes/CVector.h"
 #include "classes/DisplayWindow.h"
 #include <stdio.h>
@@ -14,7 +14,7 @@ int main()
 {
 	Box customBox(200,200,200);
 	int nbcells=20;
-	int radius=5;
+	int radius=20;
 	float dt=1;
 	vector<Force> listForces;
 	
@@ -29,8 +29,10 @@ int main()
 		aCell->setRadius(radius);
 		customBox.addCell(aCell);
 	}
-	DisplayWindow window(customBox);
-	window.displayScene();
+	//DisplayWindow window(customBox);
+	//window.displayScene();
+	customBox.reduceISO(20);
+
 	customBox.printBox();
 	customBox.deleteCells();
 

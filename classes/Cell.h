@@ -3,6 +3,7 @@
 #include <vector>
 #include "Force.h"
 #include "CVector.h"
+#include "../lib/GlobalDef.h"
 
 class Cell
 {
@@ -19,7 +20,13 @@ public:
 	CVector getCoord() const;
 	double getRadius() const;
 	std::vector<Force> getForces() const;
+	float evalDistance(const Cell &c) const;
+	float evalOverlap(const Cell &c) const;
 	void printCell() const;
+	void addForce(Force & f);
+	void checkAndSetForceWith(const Cell & c);
+	void applyForces();
+	void moveTo(float x,float y, float z);
 private:
 	int type;
 	CVector coord;

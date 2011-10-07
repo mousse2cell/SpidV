@@ -1,5 +1,5 @@
 #include "CVector.h"
-
+#include <iostream>
 
 CVector::CVector(void)
 {
@@ -16,6 +16,22 @@ void CVector::setY(const float val){this->y=val;}
 void CVector::setZ(const float val){this->z=val;}
 float CVector::getX() const{return this->x;}
 float CVector::getY() const{return this->y;}
+bool CVector::operator ==(float scalar)
+{
+	if(this->x==scalar && this->y==scalar && this->z==scalar)
+		return true;
+	else
+		return false;
+}
+
+bool CVector::operator !=(float scalar)
+{
+	if(this->x!=scalar && this->y!=scalar && this->z!=scalar)
+			return true;
+		else
+			return false;
+}
+
 float CVector::getZ() const{return this->z;}
 
 CVector::CVector(float x,float y,float z):x(x),y(y),z(z)
@@ -41,3 +57,10 @@ CVector CVector::operator*(float scalar)
     result.z = z * scalar;
     return result;
 }
+
+void CVector::print() const
+{
+	std::cout<<"x : "<<x<<" || y : "<<y<<" || z : "<<z<<std::endl;
+}
+
+

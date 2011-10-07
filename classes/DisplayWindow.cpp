@@ -41,11 +41,12 @@ void DisplayWindow::Dessiner()
 	    glLoadIdentity( );
 
 	    gluLookAt( -20, 300, -20, 100, 100, 100, 0, 1, 0 );
+	    this->drawBounds();
 	    for(unsigned int i=0;i<this->box.getCells().size();i++){
 			glColor3ub(rand()%255,rand()%255,rand()%255); //face rouge
-			Sphere(30,30,10,this->box.getCells()[i]->getCoord());
+			Sphere(30,30,this->getBox().getCells()[i]->getRadius(),this->box.getCells()[i]->getCoord());
 	    }
-		this->drawBounds();
+
 	    glFlush();
 	    SDL_GL_SwapBuffers();
 	    //Sphere(10,10);
@@ -73,7 +74,7 @@ void DisplayWindow::displayScene(){
 			exit(0);
 			break;
 		}
-		this->Dessiner();
+		//this->Dessiner();
 
 	}
 }

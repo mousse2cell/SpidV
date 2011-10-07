@@ -22,6 +22,13 @@ public:
 	void addCell(Cell* cell);
 	void printBox() const;
 	void deleteCells();
+	void setSize(int w,int h,int d);
+	void reduceISO(const int pas);
+	void reduceWidth(const int pas);
+	void reduceHeight(const int pas);
+	void reduceDepth(const int pas);
+	void updateForces();
+	void applyForces();
 private:
 	int width, height, depth;
 	std::vector<Cell*> cells;

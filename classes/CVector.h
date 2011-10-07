@@ -1,6 +1,6 @@
-#pragma once
+#ifndef CVector_H
+#define CVector_H
 
-//Class to work with coordinate
 class CVector
 {
 public:
@@ -9,14 +9,18 @@ public:
 	CVector(float x,float y,float z);
 	CVector operator+(const CVector &other);
 	CVector operator*(float scalar);
+	bool operator==(float scalar);
+	bool operator!=(float scalar);
 	void setX(const float val);
 	void setY(const float val);
 	void setZ(const float val);
 	float getX() const;
 	float getY() const;
 	float getZ() const;
+	void print() const;
 private:
     float x,y,z;
 
 };
 
+#endif
