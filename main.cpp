@@ -16,6 +16,7 @@ int main()
 	int nbcells=20;
 	int radius=20;
 	float dt=1;
+	float maxtime=20;
 	vector<Force> listForces;
 	
 	CVector coord;

@@ -162,7 +162,7 @@ void DisplayWindow::drawBounds() {
 
 	glEnd();
 	//à décommenter pour avoir les wireframe
-	//glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
+	glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
 }
 
