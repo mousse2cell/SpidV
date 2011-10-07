@@ -52,7 +52,6 @@ void DisplayWindow::Dessiner()
 }
 void DisplayWindow::displayScene(){
 	SDL_Event event;
-this->val=0;
 	SDL_Init(SDL_INIT_VIDEO);
 	atexit(SDL_Quit);
 	SDL_WM_SetCaption("SDL GL Application", NULL);
