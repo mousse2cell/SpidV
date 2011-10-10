@@ -16,20 +16,22 @@ void CVector::setY(const float val){this->y=val;}
 void CVector::setZ(const float val){this->z=val;}
 float CVector::getX() const{return this->x;}
 float CVector::getY() const{return this->y;}
-bool CVector::operator ==(float scalar)
+/*bool CVector::operator ==(float scalar)
 {
-	if(this->x==scalar && this->y==scalar && this->z==scalar)
+	if(this->x==scalar || this->y==scalar || this->z==scalar)
 		return true;
 	else
 		return false;
-}
+}*/
 
-bool CVector::operator !=(float scalar)
+bool CVector::containsOnly(float scalar)
 {
-	if(this->x!=scalar && this->y!=scalar && this->z!=scalar)
+
+	if(this->x==scalar && this->y==scalar && this->z==scalar){
 			return true;
-		else
+	}else{
 			return false;
+	}
 }
 
 float CVector::getZ() const{return this->z;}

@@ -31,13 +31,18 @@ int main()
 		customBox.addCell(aCell);
 	}
 
+		customBox.updateForces();
 	for(int i=0;i<=maxtime;i+=dt){
-		customBox.reduceDepth(10);
+		customBox.reduceDepth(5);
 	}
 
 	DisplayWindow window(&customBox);
-	window.displayScene();
+			window.displayScene();
 	customBox.printBox();
+	//customBox.reduceDepth(20);
+	std::cout<<"next"<<endl;
+	customBox.printBox();
+
 	customBox.deleteCells();
 
 	return 0;

@@ -7,8 +7,7 @@
 
 #include "BoxForce.h"
 #include <math.h>
-
-
+#include <iostream>
 
 BoxForce::BoxForce() {
 	// TODO Auto-generated constructor stub
@@ -47,13 +46,14 @@ void BoxForce::evalAttractiveForce(const Cell & c1, const Box & c2)
 
 void BoxForce::evalRepulsiveForce(const Cell & c1, const Box & b)
 {
-	float overlap_wl=sqrt(pow(c1.getCoord().getX()-c1.getRadius(),2.0f));
-	float overlap_wr=sqrt(pow(b.getWidth()-c1.getCoord().getX()+c1.getRadius(),2.0f));
-	float overlap_hl=sqrt(pow(c1.getCoord().getY()-c1.getRadius(),2.0f));
-	float overlap_hr=sqrt(pow(b.getHeight()-c1.getCoord().getY()+c1.getRadius(),2.0f));
-	float overlap_dl=sqrt(pow(c1.getCoord().getZ()-c1.getRadius(),2.0f));
-	float overlap_dr=sqrt(pow(b.getDepth()-c1.getCoord().getZ()+c1.getRadius(),2.0f));
+	float overlap_wl=-fmin((c1.getCoord().getX()-c1.getRadius()),0.0f);
+	float overlap_wr=-fmin((b.getWidth()-(c1.getCoord().getX()+c1.getRadius())),0.0f);
+	float overlap_hl=-fmin((c1.getCoord().getY()-c1.getRadius()),0.0f);
+	float overlap_hr=-fmin((b.getHeight()-(c1.getCoord().getY()+c1.getRadius())),0.0f);
+	float overlap_dl=-fmin((c1.getCoord().getZ()-c1.getRadius()),0.0f);
+	float overlap_dr=-fmin((b.getDepth()-(c1.getCoord().getZ()+c1.getRadius())),0.0f);
 	CVector cv;
+	std::cout<<overlap_wl<<"--"<<overlap_wr<<"--"<<overlap_hl<<"--"<<overlap_hr<<"--"<<overlap_dl<<"--"<<overlap_dr<<"--"<<c1.getCoord().getX()<<"---"<<c1.getCoord().getY()<<"-"<<c1.getRadius()<<"-"<<b.getWidth()<<"--"<<b.getDepth()<<std::endl;
 	cv.setX(overlap_wl-overlap_wr);
 	cv.setY(overlap_hl-overlap_hr);
 	cv.setZ(overlap_dl-overlap_dr);

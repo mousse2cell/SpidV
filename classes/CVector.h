@@ -9,8 +9,8 @@ public:
 	CVector(float x,float y,float z);
 	CVector operator+(const CVector &other);
 	CVector operator*(float scalar);
-	bool operator==(float scalar);
-	bool operator!=(float scalar);
+	//bool operator==(float scalar);
+	bool containsOnly(float scalar);
 	void setX(const float val);
 	void setY(const float val);
 	void setZ(const float val);
