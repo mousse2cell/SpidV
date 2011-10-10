@@ -30,10 +30,13 @@ int main()
 		aCell->setRadius(radius);
 		customBox.addCell(aCell);
 	}
-	//DisplayWindow window(customBox);
-	//window.displayScene();
-	customBox.reduceISO(20);
 
+	for(int i=0;i<=maxtime;i+=dt){
+		customBox.reduceDepth(10);
+	}
+
+	DisplayWindow window(&customBox);
+	window.displayScene();
 	customBox.printBox();
 	customBox.deleteCells();
 

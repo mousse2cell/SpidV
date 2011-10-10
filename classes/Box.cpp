@@ -87,7 +87,9 @@ void Box::reduceDepth(const int pas)
 
 void Box::updateForces()
 {
+	Box* tmpb=this;
 	for(unsigned int i=0;i<cells.size();i++){
+		cells[i]->checkAndSetForceWith(*tmpb);
 		for(unsigned int j=0;j<cells.size();j++){
 			if(i!=j){
 				cells[i]->checkAndSetForceWith(*cells[j]);

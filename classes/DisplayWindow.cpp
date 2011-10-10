@@ -16,19 +16,19 @@ DisplayWindow::DisplayWindow() {
 	// TODO Auto-generated constructor stub
 
 }
-DisplayWindow::DisplayWindow(const Box &b){
+DisplayWindow::DisplayWindow(Box* b){
 	this->box=b;
 }
 DisplayWindow::~DisplayWindow() {
 	// TODO Auto-generated destructor stub
 }
 
-Box DisplayWindow::getBox() const
+Box* DisplayWindow::getBox() const
 {
     return box;
 }
 
-void DisplayWindow::setBox(Box box)
+void DisplayWindow::setBox(Box* box)
 {
     this->box = box;
 }
@@ -42,9 +42,9 @@ void DisplayWindow::Dessiner()
 
 	    gluLookAt( -20, 300, -20, 100, 100, 100, 0, 1, 0 );
 	    this->drawBounds();
-	    for(unsigned int i=0;i<this->box.getCells().size();i++){
+	    for(unsigned int i=0;i<this->box->getCells().size();i++){
 			glColor3ub(rand()%255,rand()%255,rand()%255); //face rouge
-			Sphere(30,30,this->getBox().getCells()[i]->getRadius(),this->box.getCells()[i]->getCoord());
+			Sphere(30,30,this->getBox()->getCells()[i]->getRadius(),this->box->getCells()[i]->getCoord());
 	    }
 
 	    glFlush();
@@ -55,7 +55,7 @@ void DisplayWindow::displayScene(){
 	SDL_Event event;
 	SDL_Init(SDL_INIT_VIDEO);
 	atexit(SDL_Quit);
-	SDL_WM_SetCaption("SDL GL Application", NULL);
+	SDL_WM_SetCaption("Status", NULL);
 	SDL_SetVideoMode(1024, 800, 32, SDL_OPENGL);
 
 	glMatrixMode( GL_PROJECTION );
@@ -74,10 +74,11 @@ void DisplayWindow::displayScene(){
 			exit(0);
 			break;
 		}
-		//this->Dessiner();
+		this->Dessiner();
 
 	}
 }
+
 void DisplayWindow::Sphere(int a,int b,int radius, CVector coord) {
 	float xd=coord.getX();
 	float yd=coord.getY();
@@ -116,9 +117,9 @@ void DisplayWindow::Sphere(int a,int b,int radius, CVector coord) {
 }
 
 void DisplayWindow::drawBounds() {
-	int x1=this->getBox().getWidth();
-	int y1=this->getBox().getHeight();
-	int z1=this->getBox().getDepth();
+	int x1=this->getBox()->getWidth();
+	int y1=this->getBox()->getHeight();
+	int z1=this->getBox()->getDepth();
 	int x0=0;
 	int y0=0;
 	int z0=0;
@@ -165,6 +166,14 @@ void DisplayWindow::drawBounds() {
 	glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 
 }
+
+void DisplayWindow::updateDisplay() const
+{
+	//SDL_FillRect(sdl_screen,NULL, 0x000000);
+	//SDL_Flip(sdl_screen);
+}
+
+
 
 
 

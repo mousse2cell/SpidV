@@ -1,7 +1,12 @@
 #ifndef CELL_H
 #define CELL_H
 #include <vector>
+#include "protoClass.h"
 #include "Force.h"
+#include "Box.h"
+#include "Cell.h"
+#include "BoxForce.h"
+#include "CellForce.h"
 #include "CVector.h"
 #include "../lib/GlobalDef.h"
 
@@ -25,6 +30,7 @@ public:
 	void printCell() const;
 	void addForce(Force & f);
 	void checkAndSetForceWith(const Cell & c);
+	void checkAndSetForceWith(const Box & c);
 	void applyForces();
 	void moveTo(float x,float y, float z);
 private:

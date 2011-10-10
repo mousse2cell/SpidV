@@ -12,16 +12,17 @@
 class DisplayWindow {
 public:
 	DisplayWindow();
-	DisplayWindow(const Box &b);
+	DisplayWindow(Box* b);
 	virtual ~DisplayWindow();
-    Box getBox() const;
-    void setBox(Box box);
+    Box* getBox() const;
+    void setBox(Box* box);
     void displayScene();
     void Dessiner();
     void Sphere(int a,int b, int radius,CVector coord);
     void drawBounds();
+    void updateDisplay() const;
 private:
-    Box box;
+    Box* box;
 };
 
 #endif /* DISPLAYWINDOW_H_ */

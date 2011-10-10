@@ -3,6 +3,7 @@
 #include <string>
 #include <iostream>
 
+
 using namespace std;
 Cell::Cell(void)
 {
@@ -65,7 +66,6 @@ float Cell::evalDistance(const Cell & c) const
 {
 	return sqrt(pow(coord.getX()-c.coord.getX(),2.0f)+pow(coord.getY()-c.coord.getY(),2.0f)+pow(coord.getZ()-c.coord.getZ(),2.0f));
 }
-
 float Cell::evalOverlap(const Cell & c) const
 {
 	float dist=evalDistance(c);
@@ -84,7 +84,7 @@ void Cell::printCell() const{
 
 void Cell::checkAndSetForceWith(const Cell & c2)
 {
-	Force f(this,&c2);
+	CellForce f(this,&c2);
 	for(int i=1;i<=Force::AVAILABLE_FORCE.size()+1;i++){
 		f.setType(i);
 		f.evalForce(*this,c2);
@@ -112,6 +112,18 @@ void Cell::applyForces()
 	this->coord.print();
 	(cv+this->coord).print();
 	if(move) setCoord(cv+this->coord);
+}
+
+void Cell::checkAndSetForceWith(const Box & c)
+{
+	BoxForce f;
+	for(int i=1;i<=Force::AVAILABLE_FORCE.size()+1;i++){
+		f.setType(i);
+		f.evalForce(*this,c);
+		if(f.getValueXyz()!=0.0f){
+			this->addForce(f);
+		}
+	}
 }
 
 void Cell::moveTo(float x, float y, float z)
