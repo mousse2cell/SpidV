@@ -116,6 +116,7 @@ void Cell::applyForces()
 	if((DL && cv.getZ()<0) || (DR && cv.getZ()>0)) cv.setZ(0.0f);
 //	this->coord.print();
 	//(cv+this->coord).print();
+	cv.print();
 	forces.clear();
 	if(move) setCoord(cv+this->coord);
 }
