@@ -6,12 +6,12 @@ Box::Box(void)
 {
 }
 
-Box::Box(int width,int height, int depth):width(width),height(height), depth(depth)
+Box::Box(float width,float height, float depth):width(width),height(height), depth(depth)
 {
 }
 
 
-Box::Box(int width,int height, int depth, std::vector<Cell>):width(width),height(height), depth(depth), cells(cells)
+Box::Box(float width,float height, float depth, std::vector<Cell>):width(width),height(height), depth(depth), cells(cells)
 {
 }
 
@@ -20,17 +20,17 @@ Box::~Box(void)
 }
 
 
-int Box::getWidth() const{return this->width;}
-int Box::getHeight() const{return this->height;}
-int Box::getDepth() const{return this->depth;}
+float Box::getWidth() const{return this->width;}
+float Box::getHeight() const{return this->height;}
+float Box::getDepth() const{return this->depth;}
 std::vector<Cell*> Box::getCells() const{return this->cells;}
-void Box::setWidth(int width){
+void Box::setWidth(float width){
 	this->width=width;
 }
-void Box::setHeight(int height){
+void Box::setHeight(float height){
 	this->height=width;
 }
-void Box::setDepth(int depth){
+void Box::setDepth(float depth){
 	this->depth=depth;
 }
 void Box::setCells(std::vector<Cell*> cells){
@@ -40,7 +40,7 @@ void Box::addCell(Cell* cell){
 	this->cells.push_back(cell);
 }
 void Box::printBox() const{
-	std::string s="Box : "+this->width+this->height+this->depth;
+	std::string s="Box : "+(int)this->width+(int)this->height+(int)this->depth;
 	std::cout << s << std::endl;
 	for(unsigned int i=0;i<this->cells.size();i++){
 		this->cells[i]->printCell();
@@ -53,12 +53,12 @@ void Box::deleteCells(){
 	this->cells.clear();
 }
 
-void Box::reduceISO(const int pas)
+void Box::reduceISO(const float pas)
 {
 	setSize(width-pas,height-pas,depth-pas);
 }
 
-void Box::setSize(int w, int h, int d)
+void Box::setSize(float w, float h, float d)
 {
 	width=w;
 	height=h;
@@ -66,21 +66,21 @@ void Box::setSize(int w, int h, int d)
 	updateForces();
 }
 
-void Box::reduceWidth(const int pas)
+void Box::reduceWidth(const float pas)
 {
 	setSize(width-pas,height,depth);
 }
 
 
 
-void Box::reduceHeight(const int pas)
+void Box::reduceHeight(const float pas)
 {
 	setSize(width,height-pas,depth);
 }
 
 
 
-void Box::reduceDepth(const int pas)
+void Box::reduceDepth(const float pas)
 {
 	setSize(width,height,depth-pas);
 }

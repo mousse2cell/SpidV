@@ -13,12 +13,12 @@ using namespace std;
 int main()
 {
 	Box customBox(200,200,200);
-	int nbcells=20;
+	int nbcells=30;
 	int radius=20;
 	float dt=1;
-	float maxtime=20;
+	float maxtime=150;
 	vector<Force> listForces;
-	
+
 	CVector coord;
 	// instantiate new cells 
 	for(int i=0;i<nbcells;i++){
@@ -31,16 +31,35 @@ int main()
 		customBox.addCell(aCell);
 	}
 
-		customBox.updateForces();
+	//2 tests cells
+	/*coord.setX(100);
+	coord.setY(100);
+	coord.setZ(100);
+	Cell* aCell=new Cell();
+	aCell->setCoord(coord);
+	aCell->setRadius(radius);
+	customBox.addCell(aCell);
+
+
+	coord.setX(110);
+	coord.setY(110);
+	coord.setZ(110);
+	Cell* aCell2=new Cell();
+	aCell2->setCoord(coord);
+	aCell2->setRadius(radius);
+	customBox.addCell(aCell2);
+	customBox.printBox();*/
+	customBox.updateForces();
+
 	for(int i=0;i<=maxtime;i+=dt){
-		customBox.reduceDepth(5);
+		customBox.reduceDepth(1.0f);
 	}
 
 	DisplayWindow window(&customBox);
-			window.displayScene();
-	customBox.printBox();
+	window.displayScene();
+
 	//customBox.reduceDepth(20);
-	std::cout<<"next"<<endl;
+	std::cout<<"next"<<customBox.getDepth()<<endl;
 	customBox.printBox();
 
 	customBox.deleteCells();

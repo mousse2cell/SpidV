@@ -33,11 +33,30 @@ public:
 	void checkAndSetForceWith(const Box & c);
 	void applyForces();
 	void moveTo(float x,float y, float z);
+    bool isDl() const;
+    bool isDr() const;
+    bool isHl() const;
+    bool isHr() const;
+    bool isWl() const;
+    bool isWr() const;
+    void setDl(bool dl);
+    void setDr(bool dr);
+    void setHl(bool hl);
+    void setHr(bool hr);
+    void setWl(bool wl);
+    void setWr(bool wr);
+    void resetBoxCol();
 private:
-	int type;
-	CVector coord;
-	double radius;
-	std::vector<Force> forces;
+    int type;
+    CVector coord;
+    double radius;
+    std::vector<Force> forces;
+    bool WR;
+    bool WL;
+    bool DR;
+    bool DL;
+    bool HR;
+    bool HL;
 };
 
 #endif

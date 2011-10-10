@@ -19,9 +19,9 @@ public:
 	BoxForce();
     BoxForce(const Cell *c1,const Box *c2);
 	virtual ~BoxForce();
-    void evalAttractiveForce(const Cell &c1,const Box &b);
-    void evalRepulsiveForce(const Cell &c1,const Box &b);
-    void evalForce(const Cell &c1, const Box &b);
+    void evalAttractiveForce(Cell &c1,const Box &b);
+    void evalRepulsiveForce(Cell &c1,const Box &b);
+    void evalForce(Cell &c1, const Box &b);
 };
 
 #endif /* BOXFORCE_H_ */

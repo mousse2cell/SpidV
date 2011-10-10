@@ -40,7 +40,7 @@ void DisplayWindow::Dessiner()
 	    glMatrixMode( GL_MODELVIEW );
 	    glLoadIdentity( );
 
-	    gluLookAt( -20, 300, -20, 100, 100, 100, 0, 1, 0 );
+	    gluLookAt( 100, 100, -250, 100, 100, 100, 0, 1, 0 );
 	    this->drawBounds();
 	    for(unsigned int i=0;i<this->box->getCells().size();i++){
 			glColor3ub(rand()%255,rand()%255,rand()%255); //face rouge

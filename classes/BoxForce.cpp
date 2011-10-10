@@ -20,7 +20,7 @@ BoxForce::~BoxForce() {
 
 
 
-void BoxForce::evalForce(const Cell & c1, const Box & c2)
+void BoxForce::evalForce(Cell & c1, const Box & c2)
 {
 
 	switch (type)
@@ -39,12 +39,12 @@ void BoxForce::evalForce(const Cell & c1, const Box & c2)
 	}
 }
 
-void BoxForce::evalAttractiveForce(const Cell & c1, const Box & c2)
+void BoxForce::evalAttractiveForce(Cell & c1, const Box & c2)
 {
 
 }
 
-void BoxForce::evalRepulsiveForce(const Cell & c1, const Box & b)
+void BoxForce::evalRepulsiveForce(Cell & c1, const Box & b)
 {
 	float overlap_wl=-fmin((c1.getCoord().getX()-c1.getRadius()),0.0f);
 	float overlap_wr=-fmin((b.getWidth()-(c1.getCoord().getX()+c1.getRadius())),0.0f);
@@ -53,10 +53,17 @@ void BoxForce::evalRepulsiveForce(const Cell & c1, const Box & b)
 	float overlap_dl=-fmin((c1.getCoord().getZ()-c1.getRadius()),0.0f);
 	float overlap_dr=-fmin((b.getDepth()-(c1.getCoord().getZ()+c1.getRadius())),0.0f);
 	CVector cv;
-	std::cout<<overlap_wl<<"--"<<overlap_wr<<"--"<<overlap_hl<<"--"<<overlap_hr<<"--"<<overlap_dl<<"--"<<overlap_dr<<"--"<<c1.getCoord().getX()<<"---"<<c1.getCoord().getY()<<"-"<<c1.getRadius()<<"-"<<b.getWidth()<<"--"<<b.getDepth()<<std::endl;
+	//std::cout<<overlap_wl<<"--"<<overlap_wr<<"--"<<overlap_hl<<"--"<<overlap_hr<<"--"<<overlap_dl<<"--"<<overlap_dr<<"--"<<c1.getCoord().getX()<<"---"<<c1.getCoord().getY()<<"-"<<c1.getRadius()<<"-"<<b.getWidth()<<"--"<<b.getDepth()<<std::endl;
 	cv.setX(overlap_wl-overlap_wr);
 	cv.setY(overlap_hl-overlap_hr);
 	cv.setZ(overlap_dl-overlap_dr);
+	c1.resetBoxCol();
+	if(cv.getX()>0.0f) c1.setWl(true);
+	if(cv.getX()<0.0f) c1.setWr(true);
+	if(cv.getY()>0.0f) c1.setHl(true);
+	if(cv.getY()<0.0f) c1.setHr(true);
+	if(cv.getZ()>0.0f) c1.setDl(true);
+	if(cv.getZ()<0.0f) c1.setDr(true);
 	this->setValueXyz(cv*REPULSIVE_CONST);
 }
 

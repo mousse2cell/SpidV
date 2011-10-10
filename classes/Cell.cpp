@@ -7,16 +7,17 @@
 using namespace std;
 Cell::Cell(void)
 {
+	resetBoxCol();
 }
 
 Cell::Cell(int t, double r, CVector c):type(t), radius(r), coord(c)
 {
-
+	resetBoxCol();
 }
 
 Cell::Cell(int t, double r, CVector c,std::vector<Force> f):type(t), radius(r), coord(c), forces(f)
 {
-
+	resetBoxCol();
 }
 Cell::~Cell(void)
 {
@@ -76,11 +77,11 @@ float Cell::evalOverlap(const Cell & c) const
 
 void Cell::printCell() const{
 	cout<<"coord :"<<this->coord.getX()<<", "<<this->coord.getY()<<", "<<this->coord.getZ()<<endl<<"Adress :"<<this<<endl;
-	if(forces.size()>0){
+	/*if(forces.size()>0){
 		for(unsigned int i=0;i<forces.size();i++){
 			cout<<"force : "<<forces[i].getType()<<endl;
 		}
-	}
+	}*/
 }
 
 void Cell::checkAndSetForceWith(const Cell & c2)
@@ -110,8 +111,12 @@ void Cell::applyForces()
 		move=true;
 		cv=cv+forces[i].getValueXyz();
 	}
+	if((WL && cv.getX()<0) || (WR && cv.getX()>0)) cv.setX(0.0f);
+	if((HL && cv.getY()<0) || (HR && cv.getY()>0)) cv.setY(0.0f);
+	if((DL && cv.getZ()<0) || (DR && cv.getZ()>0)) cv.setZ(0.0f);
 //	this->coord.print();
 	//(cv+this->coord).print();
+	forces.clear();
 	if(move) setCoord(cv+this->coord);
 }
 
@@ -133,6 +138,80 @@ void Cell::moveTo(float x, float y, float z)
 	this->coord.setY(y);
 	this->coord.setZ(z);
 }
+
+bool Cell::isDl() const
+{
+    return DL;
+}
+
+bool Cell::isDr() const
+{
+    return DR;
+}
+
+bool Cell::isHl() const
+{
+    return HL;
+}
+
+bool Cell::isHr() const
+{
+    return HR;
+}
+
+bool Cell::isWl() const
+{
+    return WL;
+}
+
+bool Cell::isWr() const
+{
+    return WR;
+}
+
+void Cell::setDl(bool dl)
+{
+    DL = dl;
+}
+
+void Cell::setDr(bool dr)
+{
+    DR = dr;
+}
+
+void Cell::setHl(bool hl)
+{
+    HL = hl;
+}
+
+void Cell::setHr(bool hr)
+{
+    HR = hr;
+}
+
+void Cell::setWl(bool wl)
+{
+    WL = wl;
+}
+
+void Cell::setWr(bool wr)
+{
+    WR = wr;
+}
+
+void Cell::resetBoxCol()
+{
+	WR = false;
+	WL = false;
+	DR = false;
+	DL = false;
+	HR = false;
+	HL = false;
+}
+
+
+
+
 
 
 
