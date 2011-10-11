@@ -65,10 +65,12 @@ void CellForce::evalAttractiveForce(const Cell & c1, const Cell & c2)
 	float overlap=c1.evalOverlap(c2);
 	CVector cv;
 	if(overlap==0.0f){ this->setValueXyz(cv);return;}
-	cv.setX(c1.getCoord().getX()-c2.getCoord().getX());
-	cv.setY(c1.getCoord().getY()-c2.getCoord().getY());
-	cv.setZ(c1.getCoord().getZ()-c2.getCoord().getZ());
+	cv.setX(c2.getCoord().getX()-c1.getCoord().getX());
+	cv.setY(c2.getCoord().getY()-c1.getCoord().getY());
+	cv.setZ(c2.getCoord().getZ()-c1.getCoord().getZ());
+	//std::cout<<c1.getCoord().getX()<<"-Attract--"<<c2.getCoord().getX()<<"-over:"<<overlap<<"dist"<<eucliDist<<std::endl;
 	cv=cv*ATTRACTIVE_CONST*(overlap/eucliDist);
+	//cv.print();
 	this->setValueXyz(cv);
 }
 
@@ -80,9 +82,9 @@ void CellForce::evalRepulsiveForce(const Cell & c1, const Cell & c2)
 	float overlap=c1.evalOverlap(c2);
 	CVector cv;
 	if(overlap==0.0f){ this->setValueXyz(cv);return;}
-	cv.setX(c2.getCoord().getX()-c1.getCoord().getX());
-	cv.setY(c2.getCoord().getY()-c1.getCoord().getY());
-	cv.setZ(c2.getCoord().getZ()-c1.getCoord().getZ());
+	cv.setX(c1.getCoord().getX()-c2.getCoord().getX());
+	cv.setY(c1.getCoord().getY()-c2.getCoord().getY());
+	cv.setZ(c1.getCoord().getZ()-c2.getCoord().getZ());
 	cv=cv*REPULSIVE_CONST*(overlap/eucliDist);
 	this->setValueXyz(cv);
 }

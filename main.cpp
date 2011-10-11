@@ -12,8 +12,8 @@ using namespace std;
 
 int main()
 {
-	Box customBox(200,200,21);
-	int nbcells=30;
+	Box customBox(200,200,200);
+	int nbcells=40;
 	int radius=20;
 	float dt=1;
 	float maxtime=150;
@@ -21,7 +21,7 @@ int main()
 
 	CVector coord;
 	// instantiate new cells 
-	/*for(int i=0;i<nbcells;i++){
+	for(int i=0;i<nbcells;i++){
 		coord.setX(rand()%200);
 		coord.setY(rand()%200);
 		coord.setZ(rand()%200);
@@ -29,10 +29,10 @@ int main()
 		aCell->setCoord(coord);
 		aCell->setRadius(radius);
 		customBox.addCell(aCell);
-	}*/
+	}
 
 	//2 tests cells
-	coord.setX(100);
+	/*coord.setX(100);
 	coord.setY(100);
 	coord.setZ(11);
 	Cell* aCell=new Cell();
@@ -48,15 +48,15 @@ int main()
 	aCell2->setCoord(coord);
 	aCell2->setRadius(radius);
 	customBox.addCell(aCell2);
-	customBox.printBox();
+	customBox.printBox();*/
 	customBox.updateForces();
 
 	for(int i=0;i<=maxtime;i+=dt){
-		customBox.updateForces();//reduceDepth(1.0f);
+		customBox.reduceDepth(1.0f);
 	}
 
-	/*DisplayWindow window(&customBox);
-	window.displayScene();*/
+	DisplayWindow window(&customBox);
+	window.displayScene();
 
 	//customBox.reduceDepth(20);
 	std::cout<<"next"<<customBox.getDepth()<<endl;

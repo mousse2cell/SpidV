@@ -110,13 +110,15 @@ void Cell::applyForces()
 	for(unsigned int i=0;i<forces.size();i++){
 		move=true;
 		cv=cv+forces[i].getValueXyz();
+		//forces[i].getValueXyz().print();
 	}
 	if((WL && cv.getX()<0) || (WR && cv.getX()>0)) cv.setX(0.0f);
 	if((HL && cv.getY()<0) || (HR && cv.getY()>0)) cv.setY(0.0f);
 	if((DL && cv.getZ()<0) || (DR && cv.getZ()>0)) cv.setZ(0.0f);
 //	this->coord.print();
 	//(cv+this->coord).print();
-	cv.print();
+	//cout<<"total "<<this->coord.getX()<<endl;
+	//cv.print();
 	forces.clear();
 	if(move) setCoord(cv+this->coord);
 }
