@@ -31,7 +31,7 @@ public:
 	void applyForces();
 private:
 	float width, height, depth;
-	std::vector<Cell*> cells;
+	std::vector<Cell*> cells;jj
 };
 
 #endif
