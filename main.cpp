@@ -8,7 +8,7 @@
 #include "classes/Cell.h"
 #include "classes/CVector.h"
 
-
+// ma modification
 int main(int argc, char *argv[])
 {
 	double sphere_radius = 200;
