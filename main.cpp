@@ -11,7 +11,7 @@
 
 int main(int argc, char *argv[])
 {
-	double sphere_radius = 200;
+	double sphere_radius = 200;//
     double cells_radius = 20;//
     double nb_cells = 20;
     double dt = 1;
