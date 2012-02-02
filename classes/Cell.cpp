@@ -2,20 +2,33 @@
 #include <math.h>
 #include <string>
 #include <iostream>
-
+#include "Box.h"
 
 using namespace std;
 Cell::Cell(void)
 {
+	coord.setEmpty(true);
 	resetBoxCol();
 }
 
-Cell::Cell(int t, double r, CVector c):type(t), radius(r), coord(c)
+Cell::Cell(std::string id):ID(id)
+{
+	coord.setEmpty(true);
+	resetBoxCol();
+}
+
+Cell::Cell(std::string id, float r, CVector c):ID(id), radius(r), coord(c)
+{
+	coord.setEmpty(true);
+	origin=coord;
+	resetBoxCol();
+}
+Cell::Cell(std::string id, int t, float r, CVector c):ID(id), type(t), radius(r), coord(c)
 {
 	resetBoxCol();
 }
 
-Cell::Cell(int t, double r, CVector c,std::vector<Force> f):type(t), radius(r), coord(c), forces(f)
+Cell::Cell(std::string id, int t, float r, CVector c,std::vector<Force> f):ID(id), type(t), radius(r), coord(c), forces(f)
 {
 	resetBoxCol();
 }
@@ -32,13 +45,15 @@ CVector Cell::getCoord() const
 {
 	return this->coord;
 }
-
-double Cell::getRadius() const
+CVector Cell::getOrigin() const{
+	return this->origin;
+}
+float Cell::getRadius() const
 {
 	return this->radius;
 }
 
-void Cell::setRadius(double radius)
+void Cell::setRadius(float radius)
 {
 	this->radius=radius;
 }
@@ -50,6 +65,7 @@ void Cell::setType(int type)
 
 void Cell::setCoord(CVector coord)
 {
+	if(this->coord.isEmpty()) origin=coord;
 	this->coord=coord;
 }
 
@@ -65,14 +81,14 @@ std::vector<Force> Cell::getForces() const
 
 float Cell::evalDistance(const Cell & c) const
 {
-	return sqrt(pow(coord.getX()-c.coord.getX(),2.0f)+pow(coord.getY()-c.coord.getY(),2.0f)+pow(coord.getZ()-c.coord.getZ(),2.0f));
+	return coord.distanceTo(c.getCoord());
 }
 float Cell::evalOverlap(const Cell & c) const
 {
 	float dist=evalDistance(c);
-	//std::cout<<"dist :"<<dist<<endl;
+
 	float val=this->radius+c.getRadius()-dist;
-	return fmax(val,0.0f);
+	return fmax(val/2.0f,0.0f);
 }
 
 void Cell::printCell() const{
@@ -84,10 +100,10 @@ void Cell::printCell() const{
 	}*/
 }
 
-void Cell::checkAndSetForceWith(const Cell & c2)
+void Cell::checkAndSetForceWith(Cell & c2)
 {
 	CellForce f(this,&c2);
-	for(int i=1;i<=Force::AVAILABLE_FORCE.size()+1;i++){
+	for(unsigned int i=1;i<=Force::AVAILABLE_FORCE.size()+1;i++){
 		f.setType(i);
 		f.evalForce(*this,c2);
 		if(!f.getValueXyz().containsOnly(0.0f)){
@@ -123,10 +139,24 @@ void Cell::applyForces()
 	if(move) setCoord(cv+this->coord);
 }
 
-void Cell::checkAndSetForceWith(const Box & c)
+void Cell::checkAndSetForceWith(Box & c)
 {
+	neighborhood.clear();
 	BoxForce f;
-	for(int i=1;i<=Force::AVAILABLE_FORCE.size()+1;i++){
+	for(unsigned int i=1;i<=Force::AVAILABLE_FORCE.size()+1;i++){
+		f.setType(i);
+		f.evalForce(*this,c);
+		if(!f.getValueXyz().containsOnly(0.0f)){
+			this->addForce(f);
+		}
+	}
+}
+
+void Cell::checkAndSetForceWith(Sphere & c)
+{
+	neighborhood.clear();
+	SphereForce f;
+	for(unsigned int i=1;i<=Force::AVAILABLE_FORCE.size()+1;i++){
 		f.setType(i);
 		f.evalForce(*this,c);
 		if(!f.getValueXyz().containsOnly(0.0f)){
@@ -201,7 +231,12 @@ void Cell::setWr(bool wr)
 {
     WR = wr;
 }
-
+void Cell::setID(std::string id){
+	ID=id;
+}
+std::string Cell::getID() const {
+	return ID;
+}
 void Cell::resetBoxCol()
 {
 	WR = false;
@@ -215,8 +250,42 @@ void Cell::resetBoxCol()
 
 
 
-
-
+std::vector<Cell*>* Cell::splitIn(int val) const{
+	std::vector<Cell*>* daughters=new std::vector<Cell*>;
+	if(val==1){ return daughters;}
+	if(val % 2) val-=1; // on accepte pas les chiffres impair
+	CVector pt1;
+	float theta=(float)(rand()%180);//-90;//elevation
+	float phi=(float)(rand()%359);//azimuth;
+	//on place les nouvelles cellules à un rayon r/2 de la cellule mere
+	pt1.setX((radius/2)*sin(theta)*cos(phi));
+	pt1.setY((radius/2)*sin(theta)*sin(phi));
+	pt1.setZ((radius/2)*cos(theta));
+	daughters->push_back(new Cell(ID+".1",radius,pt1+coord));
+	pt1.reverseSign();
+	daughters->push_back(new Cell(ID+".2",radius,pt1+coord));
+	float locphi=phi+180;
+	float interval=180/fmax((val-2)/2+1,1.0f);
+	for(int i=1;i<=val-2;i+=2){
+		locphi-=interval;
+		pt1.setX((radius/2)*sin(theta)*cos(locphi));
+		pt1.setY((radius/2)*sin(theta)*sin(locphi));
+		pt1.setZ((radius/2)*cos(theta));
+		daughters->push_back(new Cell(ID+"."+to_string(2+i),radius,pt1+coord));
+		pt1.reverseSign();
+		daughters->push_back(new Cell(ID+"."+to_string(3+i),radius,pt1+coord));
+	}
+	return daughters;
+}
+void Cell::setNeighborhood(const std::vector<Cell*> n){
+	neighborhood=n;
+}
+std::vector<Cell*> Cell::getNeighborhood() const{
+	return neighborhood;
+}
+void Cell::addNeighborhood(Cell* c){
+	neighborhood.push_back(c);
+}
 
 
 

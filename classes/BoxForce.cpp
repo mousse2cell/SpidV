@@ -8,7 +8,7 @@
 #include "BoxForce.h"
 #include <math.h>
 #include <iostream>
-
+#include "Box.h"
 BoxForce::BoxForce() {
 	// TODO Auto-generated constructor stub
 
@@ -39,7 +39,7 @@ void BoxForce::evalForce(Cell & c1, const Box & c2)
 	}
 }
 
-void BoxForce::evalAttractiveForce(Cell & c1, const Box & c2)
+void BoxForce::evalAttractiveForce(Cell & /*c1*/, const Box & /*c2*/)
 {
 
 }

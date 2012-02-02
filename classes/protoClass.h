@@ -8,10 +8,11 @@
 #ifndef PROTOCLASS_H_
 #define PROTOCLASS_H_
 
-
+class Cell;
 class Force;
 class Box;
-class Cell;
+class Sphere;
+
 
 
 #endif /* PROTOCLASS_H_ */

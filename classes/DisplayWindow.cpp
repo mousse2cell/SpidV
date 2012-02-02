@@ -12,7 +12,7 @@
 #include <GL/gl.h>
 #include <GL/glu.h>
 
-DisplayWindow::DisplayWindow() {
+/*DisplayWindow::DisplayWindow() {
 	// TODO Auto-generated constructor stub
 
 }
@@ -172,7 +172,7 @@ void DisplayWindow::updateDisplay() const
 	//SDL_FillRect(sdl_screen,NULL, 0x000000);
 	//SDL_Flip(sdl_screen);
 }
-
+*/
 
 
 

@@ -16,9 +16,9 @@ public:
 	CellForce();
     CellForce(const Cell *c1,const Cell *c2);
 	virtual ~CellForce();
-	void evalForce(const Cell &c1, const Cell &c2);
-	void evalAttractiveForce(const Cell &c1,const Cell &c2);
-	void evalRepulsiveForce(const Cell &c1,const Cell &c2);
+	void evalForce(Cell &c1, Cell &c2);
+	void evalAttractiveForce(Cell &c1,Cell &c2);
+	void evalRepulsiveForce(Cell &c1,Cell &c2);
     const Cell* getC1() const;
     void setC1(const Cell* c1);
     const Cell* getC2() const;

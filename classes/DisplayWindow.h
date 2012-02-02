@@ -8,7 +8,7 @@
 #ifndef DISPLAYWINDOW_H_
 #define DISPLAYWINDOW_H_
 
-#include "Box.h"
+/*#include "Box.h"
 class DisplayWindow {
 public:
 	DisplayWindow();
@@ -23,6 +23,6 @@ public:
     void updateDisplay() const;
 private:
     Box* box;
-};
+};*/
 
 #endif /* DISPLAYWINDOW_H_ */
